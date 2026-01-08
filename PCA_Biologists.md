@@ -180,7 +180,7 @@ PC2: 21% variance
 
 ---
 
-## Very important notes
+## Important Notes
 
 - **PCA is unsupervised**
   - `condition` is not used to calculate PCs
