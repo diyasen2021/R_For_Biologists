@@ -1,8 +1,8 @@
 
-# R Data Analysis for Biology Students — From Basics to PhD-Level Advanced
+# R Data Analysis for Biologists
 
 **Author:** Diya Sen  
-**Audience:** PhD-level biology students (quantitative biology, ecology, plant sciences, biostatistics)  
+**Audience:** PhD/Masters biology students (quantitative biology, ecology, plant sciences, biostatistics)  
 **Dataset:** Built-in `iris` dataset (Fisher, 1936)  
 **Format:** Each module contains a *Question*, *R Solution*, and *Interpretation*.
 
