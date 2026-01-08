@@ -23,7 +23,7 @@ PCA takes the following as input
 - PCA compresses the gene matrix into a single axis (principal component) by combining the genes into weighted summaries 
 - Each principal component is therefore not a single gene, but a weighted combination of many genes, with genes that show large, consistent differences between samples contributing more strongly.
 - PCA ranks these components by how much variation they capture, keeping only the most informative ones (for example, the first 5 PCs)
-- 
+  
 
 ---
 
