@@ -110,6 +110,7 @@ You interpret the plot **biologically**, not statistically.
 
 This is a **minimal, clean example**, showing only the essential steps.
 
+
 ### 1. Load libraries
 
 ```r
@@ -117,7 +118,23 @@ library(DESeq2)
 library(ggplot2)
 ```
 
-### 2. Create a DESeq2 object
+### 2. Download some data
+You can download the processed count and metadata files directly from GitHub:
+
+Counts data (genes × samples)
+https://github.com/carpentries-incubator/bioc-rnaseq/raw/main/episodes/data/GSE96870_counts_cerebellum.csv
+ 
+Sample metadata (conditions, etc.)
+https://github.com/carpentries-incubator/bioc-rnaseq/raw/main/episodes/data/GSE96870_coldata_cerebellum.cs
+
+### 3. Import data into R
+
+```
+counts <- read.csv("GSE96870_counts_cerebellum.csv", row.names=1)
+coldata <- read.csv("GSE96870_coldata_cerebellum.csv", row.names=1)
+```
+
+### 4. Create a DESeq2 object
 
 ```r
 dds <- DESeqDataSetFromMatrix(
@@ -127,19 +144,19 @@ dds <- DESeqDataSetFromMatrix(
 )
 ```
 
-### 3. Run DESeq2 preprocessing
+### 5. Run DESeq2 preprocessing
 
 ```r
 dds <- DESeq(dds)
 ```
 
-### 4. Apply variance-stabilizing transformation
+### 6. Apply variance-stabilizing transformation
 
 ```r
 vsd <- vst(dds, blind = TRUE)
 ```
 
-### 5. Perform PCA and plot
+### 7. Perform PCA and plot
 
 ```r
 plotPCA(vsd, intgroup = "condition")
@@ -147,7 +164,7 @@ plotPCA(vsd, intgroup = "condition")
 
 ---
 
-## How to interpret this PCA plot
+## 8. How to interpret this PCA plot
 
 - **Each point = one sample**
 - Samples close together → similar gene expression profiles
