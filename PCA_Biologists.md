@@ -2,22 +2,28 @@
 
 ## What problem PCA solves
 
-In RNA-seq experiments, each sample has expression values for **thousands of genes**. This makes it difficult to directly see patterns such as:
+In RNA-seq experiments, each sample has expression values for **thousands of genes**. This makes it difficult to directly see patterns in the samples such as:
 
 - Do biological replicates cluster together?
 - Do treated and control samples separate?
 - Are there batch effects or outlier samples?
 
-**Principal Component Analysis (PCA)** simplifies this complexity by reducing thousands of gene expression measurements into just a few **summary axes** that capture the main differences between samples.
+**Principal Component Analysis (PCA)** simplifies this complexity by reducing thousands of gene expression measurements into just a few **summary axes** also called **principal components** that capture the main differences between samples.
 
 ---
 
-## What PCA treats as input
+## What PCA does
 
+PCA takes the following as input
 - **Samples** → the things you want to compare  
 - **Genes** → features used to compare samples  
 
-Each sample is represented as a long list of gene expression values. PCA looks at **all genes together** to determine how samples differ overall.
+- Each sample is represented as a long list of gene expression values.
+- PCA looks at **all genes together** to determine how samples differ overall.
+- PCA compresses the gene matrix into a single axis (principal component) by combining the genes into weighted summaries 
+- Each principal component is therefore not a single gene, but a weighted combination of many genes, with genes that show large, consistent differences between samples contributing more strongly.
+- PCA ranks these components by how much variation they capture, keeping only the most informative ones (for example, the first 5 PCs)
+- 
 
 ---
 
@@ -31,9 +37,7 @@ In a PCA plot:
 
 The distance between points reflects how different the samples are **across all genes**, not just one or two.
 
----
-
-## What PC1 and PC2 mean
+What PC1 and PC2 mean
 
 ### PC1 (Principal Component 1)
 The direction that explains the **largest source of variation** between samples.
