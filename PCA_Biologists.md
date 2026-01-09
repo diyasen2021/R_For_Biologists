@@ -175,8 +175,16 @@ plotPCA(vsd, intgroup = "infection")
 Axis labels typically look like:
 
 ```
-PC1: 38% variance
+PC1: 37% variance
 PC2: 26% variance
+```
+
+In this dataset, the largest source of variation (PC1) does not correspond to infection status. Instead, samples begin to separate by infection status along PC2, indicating that infection contributes to gene expression differences but is not the dominant driver of variability in the dataset.
+To find out what is the factor or combination of factors that affect this dataset, we need to check if some other variable has a stronger effect than infection. Lets first test sex.
+
+```
+plotPCA(vsd, intgroup = "sex")
+
 ```
 
 ---
