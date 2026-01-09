@@ -1,4 +1,4 @@
-# PCA for Biologists (RNA-seq context, R-friendly)
+# PCA for Biologists (RNA-seq context)
 
 ## What problem does PCA solve?
 
