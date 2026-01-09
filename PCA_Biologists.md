@@ -125,7 +125,7 @@ Counts data (genes × samples)
 https://github.com/carpentries-incubator/bioc-rnaseq/raw/main/episodes/data/GSE96870_counts_cerebellum.csv
  
 Sample metadata (conditions, etc.)
-https://github.com/carpentries-incubator/bioc-rnaseq/raw/main/episodes/data/GSE96870_coldata_cerebellum.cs
+https://github.com/carpentries-incubator/bioc-rnaseq/raw/main/episodes/data/GSE96870_coldata_cerebellum.csv
 
 ### 3. Import data into R
 
