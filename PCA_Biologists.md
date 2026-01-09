@@ -1,6 +1,6 @@
 # PCA for Biologists (RNA-seq context, R-friendly)
 
-## What problem PCA solves
+## What problem does PCA solve?
 
 In RNA-seq experiments, each sample has expression values for **thousands of genes**. This makes it difficult to directly see patterns in the samples such as:
 
