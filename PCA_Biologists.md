@@ -184,10 +184,26 @@ To find out what is the factor or combination of factors that affect this datase
 
 ```
 plotPCA(vsd, intgroup = "sex")
-
 ```
+![PCA plot of RNA-seq samples](PCAplot2.png)
+
+This plot shows strong separation of samples along PC1 when colored by sex, indicating that sex is a major source of variation in the RNA-seq dataset. Infection status contributes additional variation, observed primarily along PC2, suggesting that while infection influences gene expression, sex explains a larger proportion of the overall variance.
 
 ---
+## 9. Conclusions from PCA analysis
+
+**How PCA informs downstream analysis**
+
+- Sex should be included as a covariate in the differential expression model to account for its strong effect on gene expression.
+
+- Infection can then be tested while controlling for sex, ensuring that infection-associated differences are not confounded by sex-specific expression patterns.
+For example, the DESeq2 design formula is informed by PCA as follows:
+```
+design(dds) <- ~ sex + infection
+```
+
+- Biological replicates cluster together, indicating good data quality and consistency and no batch effects.
+- 
 
 ## Important Notes
 
@@ -204,6 +220,6 @@ plotPCA(vsd, intgroup = "sex")
 
 ---
 
-## One-sentence summary
+## Summary
 
-> PCA reduces thousands of gene expression values into a few components that summarize the main differences between RNA-seq samples, allowing us to visualize similarity, detect batch effects, and assess experimental quality.
+> CA was used as an exploratory analysis to identify major sources of variation in the RNA-seq dataset. The analysis revealed that sex was a primary driver of transcriptomic variability, while infection status contributed additional variation. These findings informed the inclusion of sex as a covariate in the differential expression model, allowing infection-associated gene expression changes to be assessed while accounting for sex-related differences.
