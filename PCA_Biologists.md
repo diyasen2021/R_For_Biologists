@@ -140,7 +140,7 @@ coldata <- read.csv("GSE96870_coldata_cerebellum.csv", row.names=1)
 dds <- DESeqDataSetFromMatrix(
   countData = counts,      # genes x samples matrix
   colData   = coldata,     # sample information
-  design    = ~ condition  # experimental condition
+  design    = ~ infection  # experimental condition
 )
 ```
 
@@ -159,8 +159,9 @@ vsd <- vst(dds, blind = TRUE)
 ### 7. Perform PCA and plot
 
 ```r
-plotPCA(vsd, intgroup = "condition")
+plotPCA(vsd, intgroup = "infection")
 ```
+![PCA plot of RNA-seq samples](PCAplot1.png)
 
 ---
 
@@ -175,7 +176,7 @@ Axis labels typically look like:
 
 ```
 PC1: 38% variance
-PC2: 21% variance
+PC2: 26% variance
 ```
 
 ---
