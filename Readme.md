@@ -2,8 +2,11 @@
 
 ## Introduction to R
 Overview of R and its applications.
+
 Introduction to RStudio environment.
+
 Navigating the RStudio interface.
+
 Writing and running basic R scripts.
 
 ### Basics of R Syntax and Data Types & Variables and Basic Operations
