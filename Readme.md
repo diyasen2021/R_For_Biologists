@@ -10,11 +10,17 @@ Navigating the RStudio interface.
 Writing and running basic R scripts.
 
 ### Basics of R Syntax and Data Types & Variables and Basic Operations
+
 Understanding R syntax and conventions. 
+
 Introduction to R's data types: numeric, character, logical, and factor.
+
 Working with different data types.
+
 Creating and assigning variables.
+
 Performing arithmetic operations in R.
+
 Working with logical operations and comparison
 
 
