@@ -26,14 +26,17 @@ Working with logical operations and comparison
 
 ### Vectors, Lists and Data Frames
 
-Introduction to vectors in R.
-Creating and manipulating vectors.
-Vectorized operations.
+Introduction to vectors in R. Creating and manipulating vectors. Vectorized operations.
 Common functions for working with vectors (e.g., sum (), mean (), length ()).
 Understanding lists and their structure.
 Creating and accessing elements in a list.
 
-
+Introduction to data frames as a fundamental data structure in R.
+Creating and manipulating data frames.
+Understanding the concept of packages in R.
+Introduction to the dplyr package for data manipulation.
+Introduction to the ggplot2 package for data visualization.
+Installing and loading packages.
 
 ## Vectors, Lists, and Data Frames
 ### Vectors
