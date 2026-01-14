@@ -1,55 +1,30 @@
 # Introduction to R Programming
 
-## Overview of R
-- R is a programming language and environment for statistical computing and graphics.
-- Applications include:
-  - Data analysis
-  - Statistical modeling
-  - Machine learning
-  - Data visualization
-  - Bioinformatics and social sciences
+## Introduction to R
+Overview of R and its applications.
+Introduction to RStudio environment.
+Navigating the RStudio interface.
+Writing and running basic R scripts.
 
----
+### Basics of R Syntax and Data Types & Variables and Basic Operations
+Understanding R syntax and conventions. 
+Introduction to R's data types: numeric, character, logical, and factor.
+Working with different data types.
+Creating and assigning variables.
+Performing arithmetic operations in R.
+Working with logical operations and comparison
 
-## RStudio Environment
-### Introduction
-- RStudio is an integrated development environment (IDE) for R.
-- Provides tools to write, debug, and visualize R code.
 
-### Navigating the Interface
-- **Source Pane**: Write and edit scripts.
-- **Console**: Execute commands interactively.
-- **Environment/History Pane**: View variables and command history.
-- **Files/Plots/Packages/Help Pane**: Manage files, visualize plots, install packages, and access documentation.
+### Vectors, Lists and Data Frames
 
-### Writing and Running Scripts
-- Scripts are saved as `.R` files.
-- Run code using:
-  - `Ctrl + Enter` (Windows/Linux)
-  - `Cmd + Enter` (Mac)
-- Output appears in the Console.
+Introduction to vectors in R.
+Creating and manipulating vectors.
+Vectorized operations.
+Common functions for working with vectors (e.g., sum (), mean (), length ()).
+Understanding lists and their structure.
+Creating and accessing elements in a list.
 
----
 
-## Basics of R Syntax and Data Types
-### Syntax and Conventions
-- Case-sensitive language.
-- Use `<-` or `=` for assignment.
-- Functions are called with `function_name(arguments)`.
-
-### Data Types
-- **Numeric**: `x <- 10`
-- **Character**: `y <- "Hello"`
-- **Logical**: `z <- TRUE`
-- **Factor**: `factor(c("Male", "Female", "Male"))`
-
-### Variables and Operations
-- Creating variables: `a <- 5`
-- Arithmetic operations: `+`, `-`, `*`, `/`, `^`
-- Logical operations: `&`, `|`, `!`
-- Comparisons: `==`, `!=`, `<`, `>`, `<=`, `>=`
-
----
 
 ## Vectors, Lists, and Data Frames
 ### Vectors
