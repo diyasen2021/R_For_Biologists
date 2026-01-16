@@ -145,7 +145,7 @@ We know that variables are like buckets, and so far we have seen that bucket fil
 
 ### Vectors
 
-A vector is the most common and basic data structure in R, and is pretty much the workhorse of R. It's basically just a collection of values, mainly either numbers,
+A vector is the most common and basic data structure in R, and is pretty much the workhorse of R. It's basically just a collection of values, mainly numbers.
 
 ```
 x <- c(1,2,3)
@@ -155,21 +155,34 @@ x
 
 or characters,
 
-![character vector](../img/vector1.png)
+```
+x <- c("apple", "ball", "banana")
+x
+[1] "apple"  "ball"   "banana"
+
+```
 
 or logical values,
 
-![logical vector](../img/vector5-logical.png)
+```
+x <- c(TRUE, FALSE, FALSE)
+x
+[1]  TRUE FALSE FALSE
+```
 
 **Note that all values in a vector must be of the same data type.** If you try to create a vector with more than a single data type, R will try to coerce it into a single data type. 
 
 For example, if you were to try to create the following vector:
 
-![mixed vector](../img/vector3.png)
+```
+x <- c("APPLE", FALSE, FALSE)
+> x
+[1] "APPLE" "FALSE" "FALSE"
+> class(x)
+[1] "character"
+```
 
-R will coerce it into:
-
-<img src="../img/vector4.png" width="400">
+R will coerce it into character vector
 
 The analogy for a vector is that your bucket now has different compartments; these compartments in a vector are called *elements*. 
 
