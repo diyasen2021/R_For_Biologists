@@ -147,7 +147,11 @@ We know that variables are like buckets, and so far we have seen that bucket fil
 
 A vector is the most common and basic data structure in R, and is pretty much the workhorse of R. It's basically just a collection of values, mainly either numbers,
 
-![numeric vector](../img/vector2.png)
+```
+x <- c(1,2,3)
+x
+[1] 1 2 3
+```
 
 or characters,
 
