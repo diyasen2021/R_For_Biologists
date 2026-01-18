@@ -31,16 +31,6 @@ In the above table we refer to base R functions as being contained in the "utils
 
 In addition to plain text files, you can also import data from other statistical analysis packages and Excel using functions from different packages. 
 
-| Data type               | Extension | Function          | Package            |
-|:------------------------|:----------|:------------------|:-------------------|
-| Stata version 13-14     | dta       | `readdta()`       | haven              |
-| Stata version 7-12      | dta       | `read.dta()`      | foreign            |
-| SPSS                    | sav       | `read.spss()`     | foreign            |
-| SAS                     | sas7bdat  | `read.sas7bdat()` | sas7bdat           |
-| Excel                   | xlsx, xls | `read_excel()`    | readxl (tidyverse) |
-
-Note, that these lists are not comprehensive, and may other functions exist for importing data. Once you have been using R for a bit, maybe you will have a preference for which functions you prefer to use for which data type.
-
 ### Metadata
 
 When working with large datasets, you will very likely be working with "metadata" file which contains the information about each sample in your dataset.
