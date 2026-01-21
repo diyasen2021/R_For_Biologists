@@ -119,193 +119,251 @@ functions to get a sense of the content/structure of data.
 
 When analyzing data, we often want to **partition the data so that we are only working with selected columns or rows.** A data frame or data matrix is simply a collection of vectors combined together. So let's begin with vectors and how to access different elements, and then extend those concepts to dataframes.
 
-### Vectors
-
 #### Selecting using indices
 
-If we want to extract one or several values from a vector, we must provide one or several indices using square brackets `[ ]` syntax. The **index represents the element number within a vector** (or the compartment number, if you think of the bucket analogy). R indices start at 1. Programming languages like Fortran, MATLAB, and R start counting at 1, because that's what human beings typically do. Languages in the C family (including C++, Java, Perl, and Python) count from 0 because that's simpler for computers to do.
-
-Let's start by creating a vector called age:
+Dataframes (and matrices) have 2 dimensions (rows and columns), so if we want to select some specific data from it we need to specify the "coordinates" we want from it. We use the same square bracket notation but rather than providing a single index, there are two indices required. Within the square bracket, row numbers come first followed by column numbers (and the two are separated by a comma). Let's explore the metadata dataframe, shown below are the first six samples:
 
 ```r
 age <- c(15, 22, 45, 52, 73, 81)
 ```
 
-![vector indices](../img/vector-index.png)
-
-Suppose we only wanted the fifth value of this vector, we would use the following syntax:
+For example:
 
 ```r
-age[5]
+metadata[1, 1]   # element from the first row in the first column of the data frame
+metadata[1, 3]   # element from the first row in the 3rd column
 ```
 
-If we wanted all values except the fifth value of this vector, we would use the following:
+Now if you only wanted to select based on rows, you would provide the index for the rows and leave the columns index blank. The key here is to include the comma, to let R know that you are accessing a 2-dimensional data structure:
 
 ```r
-age[-5]
+metadata[3, ]    # vector containing all elements in the 3rd row
 ```
 
-If we wanted to select more than one element we would still use the square bracket syntax, but rather than using a single value we would pass in a *vector of several index values*:
+If you were selecting specific columns from the data frame - the rows are left blank:
 
 ```r
-age[c(3,5,6)]   ## nested
-
-# OR
-
-## create a vector first then select
-idx <- c(3,5,6) # create vector of the elements of interest
-age[idx]
+metadata[ , 3]    # vector containing all elements in the 3rd column
 ```
 
-To select a sequence of continuous values from a vector, we would use `:` which is a special function that creates numeric vectors of integer in increasing or decreasing order. Let's select the *first four values* from age:
+Just like with vectors, you can select multiple rows and columns at a time. Within the square brackets, you need to provide a vector of the desired values:	
 
 ```r
-age[1:4]
+metadata[ , 1:2] # dataframe containing first two columns
+metadata[c(1,3,6), ] # dataframe containing first, third and sixth rows
 ```
 
-Alternatively, if you wanted the reverse could try `4:1` for instance, and see what is returned. 
+For larger datasets, it can be tricky to remember the column number that corresponds to a particular variable. (Is celltype in column 1
+or 2? oh, right... they are in column 1). In some cases, the column number for a variable can change if the script you are using adds or removes columns. It's therefore often better to use column names to refer to a particular variable, and it makes your code easier to read and your intentions clearer.
 
-***
-**Exercises** 
+```r
+metadata[1:3 , "celltype"] # elements of the celltype column corresponding to the first three samples
+```
 
-1. Create a vector called alphabets with the following letters, C, D, X, L, F.
-2. Use the associated indices along with `[ ]` to do the following:
-	* only display C, D and F
-	* display all except X
-	* display the letters in the opposite order (F, L, X, D, C)
 
-***
+You can do operations on a particular column, by selecting it using the `$` sign. In this case, the entire column is a vector. For instance, to extract all the genotypes from our dataset, we can use: 
+
+```r
+metadata$genotype 
+```
+You can use `colnames(metadata)` or `names(metadata)` to remind yourself of the column names. We can then supply index values to select specific values from that vector. For example, if we wanted the genotype information for the first five samples in `metadata`:
+
+```r
+colnames(metadata)
+
+metadata$genotype[1:5]
+```
+
+The `$` allows you to select a single column by name. To select multiple columns by name, you need to  concatenate a vector of strings that correspond to column names: 
+
+```r
+metadata[, c("genotype", "celltype")]
+```
+
+```r
+          genotype celltype
+sample1        Wt    typeA
+sample2        Wt    typeA
+sample3        Wt    typeA
+sample4        KO    typeA
+sample5        KO    typeA
+sample6        KO    typeA
+sample7        Wt    typeB
+sample8        Wt    typeB
+sample9        Wt    typeB
+sample10       KO    typeB
+sample11       KO    typeB
+sample12       KO    typeB
+```
+
+While there is no equivalent `$` syntax to select a row by name, you can select specific rows using the row names. To remember the names of the rows, you can use the `rownames()` function:
+
+```r
+rownames(metadata)
+
+metadata[c("sample10", "sample12"),]
+```
 
 #### Selecting using indices with logical operators
 
-We can also use indices with logical operators. Logical operators include greater than (>), less than (<), and equal to (==). A full list of logical operators in R is displayed below:
+With dataframes, similar to vectors, we can use logical vectors for specific columns in the dataframe to select only the rows in a dataframe with TRUE values at the same position or index as in the logical vector. We can then use the logical vector to return all of the rows in a dataframe where those values are TRUE.
 
-| Operator | Description |
-| :-----------:|:----------------|
-| > | greater than |
-| >= | greater than or equal to|
-| < | less than |
-| <= | less than or equal to |
-| == | equal to |
-| != | not equal to |
-| & | and |
-| \| |or |
-
-We can use logical expressions to determine whether a particular condition is true or false. For example, let's use our age vector: 
+```r
+idx <- metadata$celltype == "typeA"
 	
-```r
-age
+metadata[idx, ]
 ```
 
-If we wanted to know if each element in our age vector is greater than 50, we could write the following expression:	
+##### Selecting indices with logical operators using the `which()` function
+As you might have guessed, we can also use the `which()` function to return the indices for which the logical expression is TRUE. For example, we can find the indices where the `celltype` is `typeA` within the `metadata` dataframe:
 
 ```r
-age > 50
+idx <- which(metadata$celltype == "typeA")
+	
+metadata[idx, ]
 ```
 
-Returned is a vector of logical values the same length as age with TRUE and FALSE values indicating whether each element in the vector is greater than 50.
+Or we could find the indices for the metadata replicates 2 and 3:
 
 ```r
-[1] FALSE FALSE FALSE  TRUE  TRUE  TRUE
+idx <- which(metadata$replicate > 1)
+	
+metadata[idx, ]
 ```
 
-We can use these logical vectors to select only the elements in a vector with TRUE values at the same position or index as in the logical vector.
-
-Select all values in the `age` vector over 50 **or** `age` less than 18:
+Let's save this output to a variable:
 
 ```r
-age > 50 | age < 18
-
-age
-
-age[age > 50 | age < 18]  ## nested
-
-# OR
-
-## create a vector first then select
-idx <- age > 50 | age < 18
-age[idx]
+sub_meta <- metadata[idx, ]
 ```
 
-##### Indexing with logical operators using the `which()` function
+***
 
-While logical expressions will return a vector of TRUE and FALSE  values of the same length, we could use the `which()` function to output the indices where the values are TRUE. Indexing with either method generates the same results, and personal preference determines which method you choose to use. For example:
+**Exercise**  
+
+Subset the `metadata` dataframe to return only the rows of data with a genotype of `KO`.
+	
+***
+
+> **NOTE:** There are easier methods for subsetting **dataframes** using logical expressions, including the `filter()` and the `subset()` functions. These functions will return the rows of the dataframe for which the logical expression is TRUE, allowing us to subset the data in a single step. We will explore the `filter()` function in more detail in a later lesson.
+
+### Lists
+
+Selecting components from a list requires a slightly different notation, even though in theory a list is a vector (that contains multiple data structures). To select a specific component of a list, you need to use double bracket notation `[[]]`. Let's use the `list1` that we created previously, and index the second component:
 
 ```r
-which(age > 50 | age < 18)
-
-age[which(age > 50 | age < 18)]  ## nested
-
-# OR
-
-## create a vector first then select
-idx_num <- which(age > 50 | age < 18)
-age[idx_num]
+list1[[2]]
 ```
 
-Notice that we get the same results regardless of whether or not we use the `which()`. Also note that while `which()` works the same as the logical expressions for indexing, it can be used for multiple other operations, where it is not interchangeable with logical expressions.
-
-### Factors
-
-Since factors are special vectors, the same rules for selecting values using indices apply. The elements of the expression factor created previously had the following categories or levels: low, medium, and high. 
-
-Let's extract the values of the factor with high expression, and let's using nesting here:
+What do you see printed to the console? Using the double bracket notation is useful for **accessing the individual components whilst preserving the original data structure.** When creating this list we know we had originally stored a dataframe in the second component. With the `class` function we can check if that is what we retrieve:
 
 ```r
-expression[expression == "high"]    ## This will only return those elements in the factor equal to "high"
+comp2 <- list1[[2]]
+class(comp2)
 ```
 
-> **Nesting note**: 
->
-> The piece of code above was more efficient with nesting; we used a single step instead of two steps as shown below:
-> 
-> Step1 (no nesting): `idx <- expression == "high"`
->
-> Step2 (no nesting): `expression[idx]`
+You can also reference what is inside the component by adding an additional bracket. For example, in the first component we have a vector stored. 
+
+```r
+list1[[1]]
+	
+[1] "ecoli" "human" "corn" 
+```
+
+Now, if we wanted to reference the first element of that vector we would use:
+
+```r
+list1[[1]][1]
+
+[1] "ecoli"
+```
+
+You can also do the same for dataframes and matrices, although with larger datasets it is not advisable. Instead, it is better to save the contents of a list component to a variable (as we did above) and further manipulate it. Also, it is important to note that when selecting components we can only **access one at a time**. To access multiple components of a list, see the note below. 
+
+> **NOTE:** Using the single bracket notation also works wth lists. The difference is the class of the information that is retrieved. Using single bracket notation i.e. `list1[1]` will return the contents in a list form and *not the original data structure*. The benefit of this notation is that it allows indexing by vectors so you can access multiple components of the list at once.
 
 
 ***
+
+**Exercises**  
+
+Let's practice inspecting lists. Create a list named `random` with the following components: `metadata`, `age`, `list1`, `samplegroup`, and `number`.
+
+1. Print out the values stored in the `samplegroup` component.
+	
+2. From the `metadata` component of the list, extract the `celltype` column. From the celltype values select only the last 5 values.
+	
+***
+
+Assigning names to the components in a list can help identify what each list component contains, as well as, facilitating the extraction of values from list components. 
+
+Adding names to components of a list uses the same function as adding names to the columns of a dataframe, `names()`.
+	
+Let's check and see if the `list1` has names for the components:
+
+```r
+names(list1) 
+```
+
+When we created the list we had combined the `species` vector with  a dataframe `df` and the `number` variable. Let's assign the original names to the components:
+
+```r
+names(list1) <- c("species", "df", "number")
+	
+names(list1)
+```
+
+Now that we have named our list components, we can extract components using the `$` similar to extracting columns from a dataframe. To obtain a component of a list using the component name, use `list_name$component_name`:
+
+To extract the `df` dataframe from the `list1` list:
+
+```r
+list1$df
+```
+
+Now we have three ways that we could extract a component from a list. Let's extract the `species` vector from `list1`:
+
+```r
+list1[[1]]
+list1[["species"]]
+list1$species
+```
+
+***
+
 **Exercise**
 
-Extract only those elements in `samplegroup` that are not KO (*nesting the logical operation is optional*).
+Let's practice combining ways to extract data from the data structures we have covered so far:
+
+1. Set names for the `random` list you created in the last exercise.
+2. Extract the third component of the `age` vector from the `random` list.
+3. Extract the genotype information from the `metadata` dataframe from the `random` list.
 
 ***
 
-#### Releveling factors
+### Writing to file 
 
-We have briefly talked about factors, but this data type only becomes more intuitive once you've had a chance to work with it.  Let's take a slight detour and learn about how to **relevel categories within a factor**. 
+Everything we have done so far has only modified the data in R; the files have remained unchanged. Whenever we want to save our datasets to file, we need to use a `write` function in R. 
 
-To view the integer assignments under the hood you can use `str()`:
-
-```r
-expression
-
-str(expression)
-Factor w/ 3 levels "high","low","medium": 2 1 3 1 2 3 1
-```
-The categories are referred to as "factor levels". As we learned earlier, the levels in the `expression` factor were assigned integers alphabetically, with high=1, low=2, medium=3. However, it makes more sense for us if low=1, medium=2 and high=3, i.e. it makes sense for us to "relevel" the categories in this factor.
-
-To relevel the categories, you can add the `levels` argument to the `factor()` function, and give it a vector with the categories listed in the required order:
+To write our matrix to file in comma separated format (.csv), we can use the `write.csv` function. There are two required arguments: the variable name of the data structure you are exporting, and the path and filename that you are exporting to. By default the delimiter is set, and columns will be separated by a comma:
 
 ```r
-expression <- factor(expression, levels=c("low", "medium", "high"))     # you can re-factor a factor 
-
-str(expression)
-Factor w/ 3 levels "low","medium",..: 1 3 2 3 1 2 3
+write.csv(sub_meta, file="data/subset_meta.csv")
 ```
 
-Now we have a releveled factor with low as the lowest or first category, medium as the second and high as the third. This is reflected in the way they are listed in the output of `str()`, as well as in the numbering of which category is where in the factor.
+Similar to reading in data, there are a wide variety of functions available allowing you to export data in specific formats. Another commonly used function is `write.table`, which allows you to specify the delimiter you wish to use. This function is commonly used to create tab-delimited files.
 
-> Note: Releveling becomes necessary when you need a specific category in a factor to be the "base" category, i.e. category that is equal to 1. One example would be if you need the "control" to be the "base" in a given RNA-seq experiment.
+> **NOTE:** Sometimes when writing a dataframe with row names to file, the column names will align starting with the row names column. To avoid this, you can include the argument `col.names = NA` when writing to file to ensure all of the column names line up with the correct column values.
+
+Writing a vector of values to file requires a different function than the functions available for writing dataframes. You can use `write()` to save a vector of values to file. For example:
+
+```r
+write(glengths, file="data/genome_lengths.txt", ncolumns=1)
+```
 
 ***
-**Exercise**
 
-Use the `samplegroup` factor we created in a previous lesson, and relevel it such that KO is the first level followed by CTL and OE. 
+> ### An R package for data wrangling
+> The methods presented above are using base R functions for data wrangling. Later we will explore the **Tidyverse suite of packages**, specifically designed to make data wrangling easier.
 
 ---
-
-*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
-* *The materials used in this lesson are adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
-All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
