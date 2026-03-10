@@ -56,42 +56,6 @@ The project has four parts — data cleaning, visualisation, a brain-body allome
 
 ---
 
-## Bonus Reference Scripts
-
-Alongside the course, this repository includes a set of **annotated reference scripts** for microbiome data analysis. These are not taught as part of the course but are provided as ready-to-use templates for students and researchers working with 16S rRNA amplicon sequencing data (eDNA, gut microbiome, environmental samples).
-
-| Script | What it does |
-|--------|-------------|
-| `microbiome_relative_abundance.R` | Builds a `phyloseq` object from OTU, taxonomy, and sample data; normalises by library size; produces stacked relative abundance bar plots grouped by a metadata variable |
-| `microbiome_alpha_diversity.R` | Calculates Shannon, Simpson, Chao1, ACE, InvSimpson, Fisher, and Faith's PD; produces faceted box plots with Wilcoxon significance brackets |
-| `microbiome_beta_diversity.R` | Bray-Curtis, Jaccard, UniFrac, and Aitchison PCoA ordinations; NMDS; PERMANOVA (`adonis2`); beta-dispersion test (`betadisper`) |
-
-These scripts require `phyloseq`, `vegan`, `picante`, and `ggpubr` — see the installation instructions below.
-
----
-
-## Repository Structure
-
-```
-r-for-life-scientists/
-│
-├── README.md
-│
-├── lectures/
-│   ├── 01_r_syntax_data_structures.md
-│   └── 02_intro_to_ggplot2.md
-│
-├── project/
-│   └── r_project_msleep.md
-│
-└── microbiome_reference/
-    ├── microbiome_relative_abundance.R
-    ├── microbiome_alpha_diversity.R
-    └── microbiome_beta_diversity.R
-```
-
----
-
 ## Requirements
 
 ### Software
@@ -116,19 +80,6 @@ install.packages(c(
   "patchwork",         # combining multiple plots
   "ggrepel",           # non-overlapping text labels
   "palmerpenguins"     # penguin dataset used in Lecture 02
-))
-```
-
-**For the microbiome reference scripts only:**
-
-```r
-install.packages("BiocManager")
-BiocManager::install("phyloseq")
-
-install.packages(c(
-  "vegan",     # beta diversity and PERMANOVA
-  "picante",   # Faith's phylogenetic diversity
-  "ggpubr"     # significance brackets on plots
 ))
 ```
 
@@ -165,7 +116,6 @@ The best thing you can do in this course is get something wrong, read the error 
 
 - **Palmer Penguins dataset:** Horst AM, Hill AP, Gorman KB (2020). *palmerpenguins: Palmer Archipelago (Antarctica) penguin data.* R package version 0.1.0.
 - **msleep dataset:** Savage VM & West GB (2007). A quantitative, theoretical framework for understanding mammalian sleep. *PNAS*, 104(3), 1051–1056.
-- **phyloseq:** McMurdie PJ & Holmes S (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. *PLOS ONE*, 8(4), e61217.
 
 ---
 
