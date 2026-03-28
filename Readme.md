@@ -1,4 +1,4 @@
-# R for Life Scientists
+# R for Biologists
 ### Data Wrangling, Visualisation, and Biological Insight
 
 > *Modern biology generates more data than ever — from field surveys and lab experiments to environmental DNA and genomics. This course teaches you to work confidently with that data in R: how to clean and organise it, explore its structure, and communicate your findings through publication-quality visualisations. No prior coding experience required.*
